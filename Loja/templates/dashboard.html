@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Dashboard de Admin{% endblock title %}
+{% block link %}{% static "css/dashboard.css" %}{% endblock link %}
+
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static "css/style.css" %}">
+
+<div class="container">
+    <h1>Dashboard de Admin</h1>
+    <a href="{% url 'cadastrar' %}"><button class="add-btn">Adicionar Produto</button></a>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Título</th>
+                <th>Preço</th>
+                <th>Estoque</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for produto in produtos %}
+            <tr>
+                <td>{{produto.id}}</td>
+                <td>{{produto.titulo}}</td>
+                <td>{{produto.preco}}</td>
+                <td>{{produto.quantidade_estoque}}</td>
+                <td>
+                    <div class="action-buttons">
+                        <a href="{% url 'editar' produto.id %}"><button class="edit-btn">Editar</button></a>
+                        <form action="{% url 'excluir' produto.id %}" method="post">
+                            {% csrf_token %}
+                            <input type="submit"  value="Excluir" class="delete-btn">
+
+                        </form>
+                        
+                    </div>
+                </td>
+            </tr>               
+            {% endfor %}
+
+        </tbody>
+    </table>
+</div>
+
+
+{% endblock content %}

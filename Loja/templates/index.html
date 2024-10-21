@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Cinemando - Só Filmaço{% endblock title %}
+
+
+{% block content %}
+
+<section class="so-filmaco">
+  <img src="{% static "img/banner-filmaco.png" %}" alt="Só Filmaço">
+</section>
+<section class="categories">
+  <h2 class="title-categorie">Escolha seu DVD pelo Gênero</h2>
+  <div class="genre-icons">
+    <!-- Repeat for each genre -->
+    <div class="genre">
+      <img src="{% static "img/acao.webp" %}" alt="Ação"><br>
+      <span>Ação</span>
+    </div>
+    <div class="genre">
+      <img src="{% static "img/aventura.webp" %}" alt="Ação"><br>
+      <span>Aventura</span>
+    </div>
+    <div class="genre">
+      <img src="{% static "img/comedia.webp" %}" alt="Ação"><br>
+      <span>Comédia</span>
+    </div>
+    <div class="genre">
+      <img src="{% static "img/drama.webp" %}" alt="Ação"><br>
+      <span>Drama</span>
+    </div>
+    <div class="genre">
+      <img src="{% static "img/ficcao.webp" %}" alt="Ação"><br>
+      <span>Ficção Cientifica</span>
+    </div>
+    <div class="genre">
+      <img src="{% static "img/guerra.webp" %}" alt="Ação"><br>
+      <span>Guerra</span>
+    </div>
+    <div class="genre">
+      <img src="{% static "img/musical.webp" %}" alt="Ação"><br>
+      <span>Musical</span>
+    </div>
+    <div class="genre">
+      <img src="{% static "img/infantil.webp" %}" alt="Ação"><br>
+      <span>Infantil</span>
+    </div>
+    <div class="genre">
+      <img src="{% static "img/suspense.webp" %}" alt="Ação"><br>
+      <span>Suspense</span>
+    </div>
+    <div class="genre">
+      <img src="{% static "img/terror.webp" %}" alt="Ação"><br>
+      <span>Terror</span>
+    </div>
+    <div class="genre">
+      <img src="{% static "img/velho-oeste.webp" %}" alt="Ação"><br>
+      <span>Velho Oeste</span>
+    </div>
+  </div>
+
+</section>
+
+<!-- CATEGORIAS -->
+<section class="pre-venda">
+  <h2 class="title-categorie">PRÉ-VENDA</h2>
+  <div class="movie-grid">
+    <!-- Repeat for each movie -->
+    {% for produto in produtos %}
+    <div class="movie">
+      <img src="{{ produto.imagem.url }}" alt="Movie Title">
+      <h3>{{ produto.titulo }}</h3>
+      <p class="price">{{produto.preco}}</p>
+      <a href="{% url 'detalhe' produto.id %}"><button>Comprar</button></a>
+    </div>
+    {% endfor %}
+
+    <!-- ... other movies ... -->
+  </div>
+</section>
+
+{% endblock content %}

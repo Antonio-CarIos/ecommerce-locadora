@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Detalhes do DVD - {{ produto.titulo }}{% endblock title %}
+{% block link %}{% static "css/detalhe.css" %}{% endblock link %}
+
+
+
+{% block content %}
+
+
+<link rel="stylesheet" href="{% static "css/style.css" %}">
+
+
+<body>
+    <div class="container">
+        <div class="product-container">
+            <div class="product-image">
+                <img src="{{ produto.imagem.url }}" alt="Capa do DVD The Matrix">
+            </div>
+            <div class="product-details">
+                <h1>{{ produto.titulo }}</h1>
+                <div class="price">R${{ produto.preco }}</div>
+                <div class="synopsis">
+                    <h3>Sinopse</h3>
+                    <p>{{ produto.descricao }}</p>
+                </div>
+                <button class="buy-button">Adicionar ao Carrinho</button>
+                <div class="additional-details">
+                    <h3>Detalhes Adicionais</h3>
+                    <p><strong>Autores:</strong> {{produto.autores}}</p>
+                    <p><strong>Elenco:</strong>{{produto.elenco}}</p>
+                    <p><strong>Data de Lançamento:</strong> {{ produto.ano_lancamento }}</p>
+                    <p><strong>Gênero:</strong> {{ produto.categorias }}</p>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+
+</html>
+{% endblock content %}
+
+
+
+

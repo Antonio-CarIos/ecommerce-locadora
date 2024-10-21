@@ -1,0 +1,125 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock title %}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% block link %}{% static "css/style.css" %}{% endblock link %}">
+    <script src="https://kit.fontawesome.com/581e3785e6.js" crossorigin="anonymous"></script>
+    
+</head>
+
+<body>
+    <header class="header">
+        <div class="header-content">
+            <a href="{% url "home" %}"><div class="logo">CINEMANDO</div></a>
+            <div class="search-bar">
+                <input type="text" placeholder="O que você procura?">
+            </div>
+            <div class="user-actions">
+                <a href="#">Minha conta</a>
+                <a href="#">Carrinho (0)</a>
+            </div>
+        </div>
+    </header>
+    <nav class="nav">
+        <ul>
+            <li><a href="#">Início</a></li>
+            <li><a href="#">Pré-Venda</a></li>
+            <li><a href="#">Lançamentos Cinemando</a></li>
+            <li><a href="#">Filmes em DVD</a></li>
+            <li><a href="#">Filmes em Blu-ray</a></li>
+            <li><a href="#">Os Mais Vendidos</a></li>
+            <li><a href="#">Vencedores de Oscar</a></li>
+        </ul>
+    </nav>
+
+    
+    <main>
+        {% block content %}
+
+        {% endblock content %}
+
+    </main>
+    <footer class="site-footer">
+        <!-- Footer content -->
+        <div class="footer-content">
+            <div class="footer-columns">
+                <div class="footer-column">
+                    <h3>Institucional</h3>
+                    <ul>
+                        <li><a href="#">Quem Somos</a></li>
+                        <li><a href="#">Fale Conosco</a></li>
+                        <li><a href="#">Minha Conta</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Informações</h3>
+                    <ul>
+                        <li><a href="#">Compra Segura</a></li>
+                        <li><a href="#">Política de Trocas e Devoluções</a></li>
+                        <li><a href="#">Política de Entregas</a></li>
+                        <li><a href="#">Política de Privacidade</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Categorias</h3>
+                    <ul>
+                        <li><a href="#">Pré-Venda</a></li>
+                        <li><a href="#">Lançamentos</a></li>
+                        <li><a href="#">Filmes em DVD</a></li>
+                        <li><a href="#">Filmes em Blu-ray</a></li>
+                        <li><a href="#">Promoções</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Central de atendimento</h3>
+                    <ul>
+                        <li><a href="tel:+558433541000">(84) 3354-1000</a></li>
+                        <li><a href="https://wa.me/5584972050605">(84) 97205-0605</a></li>
+                        <li><a href="mailto:contato@cinemando.com.br">contato@cinemando.com.br</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-logo">
+                    <img src="/placeholder.svg?height=50&width=50" alt="Cinemando Logo" class="logo-image">
+                    <div class="logo-text">
+                        <h2>CINEMANDO</h2>
+                        <p>NO CONFORTO DE CASA</p>
+                    </div>
+                    <div class="social-icons">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="newsletter">
+                    <h3>Receba novidades e promoções</h3>
+                    <form class="newsletter-form">
+                        <input type="text" placeholder="Seu nome" aria-label="Seu nome">
+                        <input type="email" placeholder="Seu e-mail" aria-label="Seu e-mail">
+                        <button type="submit">OK</button>
+                    </form>
+                </div>
+            </div>
+            <div class="payment-methods">
+                <h3>Pagamento</h3>
+                <div class="payment-icons">
+                    <img src="/placeholder.svg?height=30&width=50" alt="Visa" class="payment-icon">
+                    <img src="/placeholder.svg?height=30&width=50" alt="Mastercard" class="payment-icon">
+                    <img src="/placeholder.svg?height=30&width=50" alt="American Express" class="payment-icon">
+                    <img src="/placeholder.svg?height=30&width=50" alt="Elo" class="payment-icon">
+                    <img src="/placeholder.svg?height=30&width=50" alt="Hipercard" class="payment-icon">
+                    <img src="/placeholder.svg?height=30&width=50" alt="Diners Club" class="payment-icon">
+                    <img src="/placeholder.svg?height=30&width=50" alt="Boleto" class="payment-icon">
+                    <img src="/placeholder.svg?height=30&width=50" alt="PIX" class="payment-icon">
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
