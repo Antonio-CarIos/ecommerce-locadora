@@ -16,23 +16,24 @@
     <div class="container">
         <div class="product-container">
             <div class="product-image">
-                <img src="{{ produto.imagem.url }}" alt="Capa do DVD The Matrix">
+                <img src="{{ produto.imagem.url }}" alt="{{ produto.titulo }}">
             </div>
             <div class="product-details">
                 <h1>{{ produto.titulo }}</h1>
-                <div class="price">R${{ produto.preco }}</div>
+                <div class="price">R$ {{ produto.preco|floatformat:2 }}</div>
                 <div class="synopsis">
                     <h3>Sinopse</h3>
                     <p>{{ produto.descricao }}</p>
                 </div>
-                <button class="buy-button">Adicionar ao Carrinho</button>
+                <button class="buy-button">
+                    <i class="fas fa-shopping-cart"></i> Adicionar ao Carrinho
+                </button>
                 <div class="additional-details">
                     <h3>Detalhes Adicionais</h3>
-                    <p><strong>Autores:</strong> {{produto.autores}}</p>
-                    <p><strong>Elenco:</strong>{{produto.elenco}}</p>
-                    <p><strong>Data de Lançamento:</strong> {{ produto.ano_lancamento }}</p>
-                    <p><strong>Gênero:</strong> {{ produto.categorias }}</p>
-                    
+                    <p><strong>Autores:</strong> <span>{{ produto.autores }}</span></p>
+                    <p><strong>Elenco:</strong> <span>{{ produto.elenco }}</span></p>
+                    <p><strong>Data de Lançamento:</strong> <span>{{ produto.ano_lancamento }}</span></p>
+                    <p><strong>Gênero:</strong> <span>{{ produto.categorias }}</span></p>
                 </div>
             </div>
         </div>

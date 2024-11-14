@@ -11,7 +11,7 @@
 
 <div class="container">
     <h1>Dashboard de Admin</h1>
-    <a href="{% url 'cadastrar' %}"><button class="add-btn">Adicionar Produto</button></a>
+    <a href="{% url 'cadastrar' %}"><button class="add-btn"><i class="fas fa-plus"></i> Adicionar Produto</button></a>
     <table>
         <thead>
             <tr>
@@ -25,27 +25,23 @@
         <tbody>
             {% for produto in produtos %}
             <tr>
-                <td>{{produto.id}}</td>
-                <td>{{produto.titulo}}</td>
-                <td>{{produto.preco}}</td>
-                <td>{{produto.quantidade_estoque}}</td>
-                <td>
+                <td data-label="ID">{{produto.id}}</td>
+                <td data-label="Título">{{produto.titulo}}</td>
+                <td data-label="Preço">R$ {{produto.preco|floatformat:2}}</td>
+                <td data-label="Estoque">{{produto.quantidade_estoque}}</td>
+                <td data-label="Ações">
                     <div class="action-buttons">
-                        <a href="{% url 'editar' produto.id %}"><button class="edit-btn">Editar</button></a>
+                        <a href="{% url 'editar' produto.id %}"><button class="edit-btn"><i class="fas fa-edit"></i> Editar</button></a>
                         <form action="{% url 'excluir' produto.id %}" method="post">
                             {% csrf_token %}
-                            <input type="submit"  value="Excluir" class="delete-btn">
-
+                            <button type="submit" class="delete-btn"><i class="fas fa-trash-alt"></i> Excluir</button>
                         </form>
-                        
                     </div>
                 </td>
             </tr>               
             {% endfor %}
-
         </tbody>
     </table>
 </div>
-
 
 {% endblock content %}

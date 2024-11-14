@@ -6,77 +6,128 @@
 
 {% block content %}
 
-<section class="so-filmaco">
-  <img src="{% static "img/banner-filmaco.png" %}" alt="Só Filmaço">
-</section>
-<section class="categories">
-  <h2 class="title-categorie">Escolha seu DVD pelo Gênero</h2>
-  <div class="genre-icons">
-    <!-- Repeat for each genre -->
-    <div class="genre">
-      <img src="{% static "img/acao.webp" %}" alt="Ação"><br>
-      <span>Ação</span>
-    </div>
-    <div class="genre">
-      <img src="{% static "img/aventura.webp" %}" alt="Ação"><br>
-      <span>Aventura</span>
-    </div>
-    <div class="genre">
-      <img src="{% static "img/comedia.webp" %}" alt="Ação"><br>
-      <span>Comédia</span>
-    </div>
-    <div class="genre">
-      <img src="{% static "img/drama.webp" %}" alt="Ação"><br>
-      <span>Drama</span>
-    </div>
-    <div class="genre">
-      <img src="{% static "img/ficcao.webp" %}" alt="Ação"><br>
-      <span>Ficção Cientifica</span>
-    </div>
-    <div class="genre">
-      <img src="{% static "img/guerra.webp" %}" alt="Ação"><br>
-      <span>Guerra</span>
-    </div>
-    <div class="genre">
-      <img src="{% static "img/musical.webp" %}" alt="Ação"><br>
-      <span>Musical</span>
-    </div>
-    <div class="genre">
-      <img src="{% static "img/infantil.webp" %}" alt="Ação"><br>
-      <span>Infantil</span>
-    </div>
-    <div class="genre">
-      <img src="{% static "img/suspense.webp" %}" alt="Ação"><br>
-      <span>Suspense</span>
-    </div>
-    <div class="genre">
-      <img src="{% static "img/terror.webp" %}" alt="Ação"><br>
-      <span>Terror</span>
-    </div>
-    <div class="genre">
-      <img src="{% static "img/velho-oeste.webp" %}" alt="Ação"><br>
-      <span>Velho Oeste</span>
-    </div>
+
+
+<main>
+  <div class="container">
+    <section class="banner">
+      <img
+        src="https://img.freepik.com/vetores-gratis/fundo-de-tempo-de-filme-com-tira-de-filme-e-estrelas_1017-26097.jpg?semt=ais_hybrid"
+        alt="Banner Cinemando">
+      <div class="banner-content">
+        <h2>Bem-vindo ao Cinemando</h2>
+        <p>Sua loja online de DVDs e Blu-rays</p>
+        <a href="#" class="btn">Explorar Catálogo</a>
+      </div>
+    </section>
+
+    <section class="genre-section">
+      <h2>Escolha seu DVD pelo Gênero</h2>
+      <div class="genre-icons">
+        <div class="genre-icon">
+          <img src="{% static "img/acao.webp" %}" alt="Ação / Crime / Policial">
+
+          <span>Ação / Crime / Policial</span>
+        </div>
+        <div class="genre-icon">
+          <img src="{% static "img/aventura.webp" %}" alt="Aventura / Épicos / Fantasia">
+          <span>Aventura / Épicos / Fantasia</span>
+        </div>
+        <div class="genre-icon">
+          <img src="{% static "img/comedia.webp" %}" alt="Comédia">
+          <span>Comédia</span>
+        </div>
+        <div class="genre-icon">
+          <img src="{% static "img/drama.webp" %}" alt="Drama">
+          <span>Drama</span>
+        </div>
+        <div class="genre-icon">
+          <img src="{% static "img/ficcao.webp" %}" alt="Ficção Científica">
+          <span>Ficção Científica</span>
+        </div>
+        <div class="genre-icon">
+          <img src="{% static "img/guerra.webp" %}" alt="Guerra / Documentário">
+          <span>Guerra / Documentário</span>
+        </div>
+        <div class="genre-icon">
+          <img src="{% static "img/musical.webp" %}" alt="Musical">
+          <span>Musical</span>
+        </div>
+        <div class="genre-icon">
+          <img src="{% static "img/infantil.webp" %}" alt="Infantil / Animação">
+          <span>Infantil / Animação</span>
+        </div>
+        <div class="genre-icon">
+          <img src="{% static "img/suspense.webp" %}" alt="Suspense / Noir">
+          <span>Suspense / Noir</span>
+        </div>
+        <div class="genre-icon">
+          <img src="{% static "img/terror.webp" %}" alt="Terror / Horror">
+          <span>Terror / Horror</span>
+        </div>
+        <div class="genre-icon">
+          <img src="{% static "img/velho-oeste.webp" %}" alt="Western">
+          <span>Western</span>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="movies">
+      <h2>Destaques</h2>
+      <div class="movie-carousel">
+        <div class="movie-grid" id="destaquesGrid">
+          {% for produto in produtos %}
+          <div class="movie-card">
+            <div style="position: relative;">
+              <img src="{{ produto.imagem.url }}" alt="{{ produto.titulo }}">
+              {% if produto.pre_venda %}
+              <span class="pre-sale-tag">PRÉ-VENDA</span>
+              {% endif %}
+            </div>
+            <div class="movie-info">
+              <h3 class="movie-title">{{ produto.titulo }}</h3>
+              <p class="movie-price">R$ {{ produto.preco|floatformat:2 }}</p>
+              <a href="{% url 'detalhe' produto.id %}" class="add-to-cart">Comprar</a>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        <button class="carousel-btn prev" onclick="moveCarousel('destaquesGrid', -1)">&#10094;</button>
+        <button class="carousel-btn next" onclick="moveCarousel('destaquesGrid', 1)">&#10095;</button>
+      </div>
+    </section>
+    
+    <section class="movies">
+      <h2>Promoções</h2>
+      <div class="movie-carousel">
+        <div class="movie-grid" id="promocoesGrid">
+          {% for produto in produtos %}
+          <div class="movie-card">
+            <div style="position: relative;">
+              <img src="{{ produto.imagem.url }}" alt="{{ produto.titulo }}">
+              {% if produto.pre_venda %}
+              <span class="pre-sale-tag">PRÉ-VENDA</span>
+              {% endif %}
+            </div>
+            <div class="movie-info">
+              <h3 class="movie-title">{{ produto.titulo }}</h3>
+              <p class="movie-price">R$ {{ produto.preco|floatformat:2 }}</p>
+              <a href="{% url 'detalhe' produto.id %}" class="add-to-cart">Comprar</a>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        <button class="carousel-btn prev" onclick="moveCarousel('promocoesGrid', -1)">&#10094;</button>
+        <button class="carousel-btn next" onclick="moveCarousel('promocoesGrid', 1)">&#10095;</button>
+      </div>
+    </section>
+    
+
+
+
   </div>
+</main>
 
-</section>
-
-<!-- CATEGORIAS -->
-<section class="pre-venda">
-  <h2 class="title-categorie">PRÉ-VENDA</h2>
-  <div class="movie-grid">
-    <!-- Repeat for each movie -->
-    {% for produto in produtos %}
-    <div class="movie">
-      <img src="{{ produto.imagem.url }}" alt="Movie Title">
-      <h3>{{ produto.titulo }}</h3>
-      <p class="price">{{produto.preco}}</p>
-      <a href="{% url 'detalhe' produto.id %}"><button>Comprar</button></a>
-    </div>
-    {% endfor %}
-
-    <!-- ... other movies ... -->
-  </div>
-</section>
 
 {% endblock content %}

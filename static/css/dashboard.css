@@ -1,84 +1,150 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #f4f1ea;
+    background-color: #0a0e17;
+}
+
 .container {
     max-width: 1200px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #FFFFFF;
-    border-radius: 8px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    margin: 0 auto;
+    padding: 40px 20px;
 }
+
 h1 {
-    color: #8B4513;
-    margin-bottom: 20px;
+    font-size: 2.5rem;
+    color: #d4af37;
+    margin-bottom: 30px;
+    text-align: center;
 }
-.add-product {
-    background-color: #D2691E;
-    color: white;
+
+/* Add Product button */
+.add-btn {
+    display: inline-block;
+    background-color: #8b0000;
+    color: #f4f1ea;
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
     border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    border-radius: 5px;
+    border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
-.add-product:hover {
-    background-color: #8B4513;
+
+.add-btn:hover {
+    background-color: #d4af37;
 }
+
+/* Table styles */
 table {
     width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
+    border-collapse: separate;
+    border-spacing: 0 10px;
 }
-th, td {
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid #D2B48C;
+
+thead {
+    background-color: #1a1e2a;
 }
+
 th {
-    background-color: #D2B48C;
-    color: #8B4513;
+    color: #d4af37;
     font-weight: bold;
+    text-align: left;
+    padding: 15px;
+    text-transform: uppercase;
 }
-tr:nth-child(even) {
-    background-color: #f9f5f0;
+
+tbody tr {
+    background-color: #1a1e2a;
+    transition: background-color 0.3s ease;
 }
+
+tbody tr:hover {
+    background-color: #2a2e3a;
+}
+
+td {
+    padding: 15px;
+}
+
+/* Action buttons */
 .action-buttons {
     display: flex;
     gap: 10px;
 }
+
 .edit-btn, .delete-btn {
-    padding: 6px 12px;
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-transform: uppercase;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
+
 .edit-btn {
-    background-color: #4CAF50;
-    color: white;
+    background-color: #d4af37;
+    color: #0a0e17;
 }
+
 .edit-btn:hover {
-    background-color: #45a049;
+    background-color: #e5c158;
 }
+
 .delete-btn {
-    background-color: #f44336;
-    color: white;
+    background-color: #8b0000;
+    color: #f4f1ea;
 }
+
 .delete-btn:hover {
-    background-color: #da190b;
+    background-color: #a50000;
 }
+
+/* Responsive design */
 @media (max-width: 768px) {
-    .container {
-        padding: 10px;
+    table, thead, tbody, th, td, tr {
+        display: block;
     }
-    table {
-        font-size: 14px;
+
+    thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
     }
-    th, td {
-        padding: 8px;
+
+    tr {
+        margin-bottom: 15px;
     }
+
+    td {
+        border: none;
+        position: relative;
+        padding-left: 50%;
+    }
+
+    td:before {
+        content: attr(data-label);
+        position: absolute;
+        left: 6px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        font-weight: bold;
+        color: #d4af37;
+    }
+
     .action-buttons {
-        flex-direction: column;
-        gap: 5px;
+        justify-content: flex-end;
     }
 }
