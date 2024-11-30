@@ -1,0 +1,24 @@
+<!-- Pagination -->
+{% if page_obj.paginator.num_pages > 1 %}
+<div class="pagination-container">
+    <ul class="pagination">
+        {% if produtos.has_previous %}
+            <li><a href="?page=1&category={{ categoria_selecionada }}&price_min={{ preco_min }}&price_max={{ preco_max }}&sort={{ ordenar }}">&laquo;</a></li>
+            <li><a href="?page={{ produtos.previous_page_number }}&category={{ categoria_selecionada }}&price_min={{ preco_min }}&price_max={{ preco_max }}&sort={{ ordenar }}">&lsaquo;</a></li>
+        {% endif %}
+
+        {% for num in produtos.paginator.page_range %}
+            {% if produtos.number == num %}
+                <li class="active"><span>{{ num }}</span></li>
+            {% else %}
+                <li><a href="?page={{ num }}&category={{ categoria_selecionada }}&price_min={{ preco_min }}&price_max={{ preco_max }}&sort={{ ordenar }}">{{ num }}</a></li>
+            {% endif %}
+        {% endfor %}
+
+        {% if produtos.has_next %}
+            <li><a href="?page={{ produtos.next_page_number }}&category={{ categoria_selecionada }}&price_min={{ preco_min }}&price_max={{ preco_max }}&sort={{ ordenar }}">&rsaquo;</a></li>
+            <li><a href="?page={{ produtos.paginator.num_pages }}&category={{ categoria_selecionada }}&price_min={{ preco_min }}&price_max={{ preco_max }}&sort={{ ordenar }}">&raquo;</a></li>
+        {% endif %}
+    </ul>
+</div>
+{% endif %}

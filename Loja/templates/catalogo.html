@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Cinemando - Catálogo de DVDs{% endblock title %}
+{% block link %}{% static "css/catalogo.css" %}{% endblock link %}
+
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static "css/style.css" %}">
+
+<main class="container">
+    <div class="content-wrapper">
+        <section class="filters">
+            <h2>Filtros e Ordenação</h2>
+            <form action="" method="get">
+                <div class="filter-group">
+                    <label for="category">Categoria:</label>
+                    <select name="category" id="category">
+                        <option value="" {% if not categoria_selecionada %}selected{% endif %}>Todas</option>
+                        <option value="acao" {% if categoria_selecionada == "Ação" %}selected{% endif %}>Ação</option>
+                        <option value="aventura" {% if categoria_selecionada == "Aventura" %}selected{% endif %}>Aventura</option>
+                        <option value="comedia" {% if categoria_selecionada == "Comédia" %}selected{% endif %}>Comédia</option>
+                        <option value="drama" {% if categoria_selecionada == "Drama" %}selected{% endif %}>Drama</option>
+                        <option value="ficcao cientifica" {% if categoria_selecionada == "Ficção Cientifica" %}selected{% endif %}>Ficção Cientifica</option>
+                        <option value="guerra" {% if categoria_selecionada == "Guerra" %}selected{% endif %}>Guerra</option>
+                        <option value="musical" {% if categoria_selecionada == "Musical" %}selected{% endif %}>Musical</option>
+                        <option value="infantil" {% if categoria_selecionada == "Infantil" %}selected{% endif %}>Infantil</option>
+                        <option value="suspense" {% if categoria_selecionada == "Suspense" %}selected{% endif %}>Suspense</option>
+                        <option value="terror" {% if categoria_selecionada == "Terror" %}selected{% endif %}>Terror</option>
+                        <option value="western" {% if categoria_selecionada == "Western" %}selected{% endif %}>Western</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="price_min">Faixa de Preço:</label>
+                    <span>
+                        <input type="number" name="price_min" id="price_min" value="{{ preco_min }}" placeholder="Mín">
+                        -
+                        <input type="number" name="price_max" id="price_max" value="{{ preco_max }}" placeholder="Máx">
+                    </span>
+                </div>
+                <div class="filter-group">
+                    <label for="sort">Ordenar por:</label>
+                    <select name="sort" id="sort">
+                        <option value="" {% if not ordenar %}selected{% endif %}>Padrão</option>
+                        <option value="price_asc" {% if ordenar == "price_asc" %}selected{% endif %}>Preço: Menor para Maior</option>
+                        <option value="price_desc" {% if ordenar == "price_desc" %}selected{% endif %}>Preço: Maior para Menor</option>
+                    </select>
+                </div>
+                <button type="submit" class="apply-filters">Aplicar Filtros</button>
+            </form>
+            
+        </section>
+
+        <section class="product-section">
+            <div class="product-grid">
+                
+                <!-- Example product cards (replace with Django template tags) -->
+                {% for produto in produtos %}
+                <div class="product-card">
+                    <img src="{{ produto.imagem.url }}" alt="DVD 1">
+                    <div class="product-info">
+                        <h3 class="product-title">{{ produto.titulo }}</h3>
+                        <p class="product-price">R$ {{ produto.preco|floatformat:2 }}</p>
+                        <a href="{% url 'detalhe' produto.id %}"><button class="buy-button">Comprar</button></a>
+                    </div>
+                </div>
+                {% endfor %} 
+            </div>
+
+            {% include 'components/pagination.html' with page_obj=produtos %}
+
+        </section>
+    </div>
+</main>
+
+
+{% endblock content %}
+
+

@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Produto
+from .models import Produto, Perfil
 from .forms import ProdutoForm
+from django.core.paginator import Paginator
 
 # Create your views here.
 def home(request):
@@ -113,3 +114,55 @@ def dashboards(request):
         'dashboard.html',
         context
     )
+
+def lista_produtos(request):
+    categoria = request.GET.get('category')
+    preco_min = request.GET.get('price_min')
+    preco_max = request.GET.get('price_max')
+    ordenar = request.GET.get('sort')
+
+    produtos_lista = Produto.objects.all().order_by('titulo')
+
+    # Filtro por categoria
+    if categoria:
+        produtos_lista = produtos_lista.filter(categorias__nome=categoria)  # Ajuste aqui!
+
+    # Filtro por faixa de preço
+    if preco_min:
+        produtos_lista = produtos_lista.filter(preco__gte=preco_min)
+    if preco_max:
+        produtos_lista = produtos_lista.filter(preco__lte=preco_max)
+
+    # Ordenação
+    if ordenar == 'price_asc':
+        produtos_lista = produtos_lista.order_by('preco')
+    elif ordenar == 'price_desc':
+        produtos_lista = produtos_lista.order_by('-preco')
+    else:
+        produtos_lista = produtos_lista.order_by('titulo')
+
+
+    paginator = Paginator(produtos_lista, 5)
+    page = request.GET.get('page', 1)
+    try :
+        produtos = paginator.page(page)
+    except:
+        produtos = paginator.page(1)
+
+    context = {
+        'produtos':produtos,
+        'categoria_selecionada': categoria,
+        'preco_min': preco_min,
+        'preco_max': preco_max,
+        'ordenar': ordenar
+
+    }
+
+    return render (
+        request,
+        'catalogo.html',
+        context
+    )
+
+
+

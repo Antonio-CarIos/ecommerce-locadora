@@ -12,7 +12,7 @@ class ProdutoForm(forms.ModelForm):
             'ano_lancamento': forms.NumberInput(attrs={'class': 'form-control'}),
             'preco': forms.NumberInput(attrs={'class': 'form-control'}),
             'quantidade_estoque': forms.NumberInput(attrs={'class': 'form-control'}),
-            'categorias': forms.TextInput(attrs={'class': 'form-control'}),
+            'categorias': forms.SelectMultiple(attrs={'class': 'form-control'}),
             'imagem': forms.FileInput(attrs={'class': 'form-control'}),
             'autores': forms.TextInput(attrs={'class': 'form-control'}),
             'elenco': forms.TextInput(attrs={'class': 'form-control'}),

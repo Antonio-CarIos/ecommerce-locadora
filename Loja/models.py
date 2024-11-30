@@ -1,65 +1,70 @@
 from django.db import models
-  
+from django.contrib.auth.models import AbstractUser
+
+class Perfil(AbstractUser):
+    endereco = models.CharField(max_length=255, blank=True, null=True)
+    telefone = models.CharField(max_length=20, blank=True, null=True)
+    data_cadastro = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return self.username
+
+
+class Categoria(models.Model):
+    nome = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.nome
+
+
 class Produto(models.Model):
     titulo = models.CharField(max_length=100)
     descricao = models.TextField()
     ano_lancamento = models.IntegerField()
-    preco = models.DecimalField(max_digits=5, decimal_places=2)
+    preco = models.DecimalField(max_digits=8, decimal_places=2)
     quantidade_estoque = models.IntegerField()
-    categorias = models.CharField(max_length=100)
+    categorias = models.ManyToManyField(Categoria)
     imagem = models.ImageField(upload_to='capas-filmes/')
     autores = models.TextField()
     elenco = models.TextField()
 
-
     def __str__(self):
         return self.titulo
-    
-class Categoria(models.Model):
-    nome = models.CharField(max_length=100)
-    produtos = models.ManyToManyField(Produto)
 
-    def __str__(self):
-        return self.nome   
-     
-class Usuario(models.Model):
-    nome = models.CharField(max_length=100)
-    email = models.EmailField()
-    senha = models.CharField(max_length=100)
-    endereco = models.CharField(max_length=100)
-    telefone = models.CharField(max_length=100)
-    data_cadastro = models.DateField()
-
-
-    def __str__(self):
-        return self.nome
-    
 
 class Carrinho(models.Model):
-    quantidade = models.IntegerField()
-    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    usuario = models.ForeignKey(Perfil, on_delete=models.CASCADE)
     produto = models.ForeignKey(Produto, on_delete=models.CASCADE)
-    
+    quantidade = models.IntegerField()
 
     def __str__(self):
-        return self.produto.titulo
+        return f"{self.quantidade} x {self.produto.titulo} - {self.usuario.username}"
     
+    
+class ItemCarrinho(models.Model):
+    carrinho = models.ForeignKey(Carrinho, on_delete=models.CASCADE, related_name="itens")
+    produto = models.ForeignKey(Produto, on_delete=models.CASCADE)
+    quantidade = models.PositiveIntegerField(default=1)
+
+    def __str__(self):
+        return f"{self.quantidade} x {self.produto.titulo} no {self.carrinho}"
+
+    @property
+    def total_preco(self):
+        return self.quantidade * self.produto.preco
+
+
 class Pedido(models.Model):
-    data_pedido = models.DateField()
-    valor_total = models.DecimalField(max_digits=5, decimal_places=2)
-    metodo= models.CharField(max_length=100)
-    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    usuario = models.ForeignKey(Perfil, on_delete=models.CASCADE)
+    data_pedido = models.DateField(auto_now_add=True)
+    valor_total = models.DecimalField(max_digits=8, decimal_places=2)
+    metodo_pagamento = models.CharField(max_length=50, choices=[
+        ('Pix', 'Pix'),
+        ('Cartão de Crédito', 'Cartão de Crédito'),
+        ('Dinheiro Físico', 'Dinheiro Físico')
+    ])
+   
 
     def __str__(self):
-        return self.usuario.nome
+        return f"Pedido #{self.id} - {self.usuario.username}"
     
-
-  
-
-
-
-
-
-
-
-# Create your models here.
