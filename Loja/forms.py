@@ -1,5 +1,6 @@
 import django.forms as forms
-from .models import Produto
+from .models import Produto, Perfil
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm, AuthenticationForm
 
 
 class ProdutoForm(forms.ModelForm):
@@ -17,5 +18,22 @@ class ProdutoForm(forms.ModelForm):
             'autores': forms.TextInput(attrs={'class': 'form-control'}),
             'elenco': forms.TextInput(attrs={'class': 'form-control'}),
         }
+
+class PerfilCreationForm(UserCreationForm):
+    class Meta:
+        model = Perfil
+        fields = ['first_name','last_name','username','email','endereco','telefone','password1','password2']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields['first_name'].widget.attrs.update({'placeholder': 'Nome'})
+        self.fields['last_name'].widget.attrs.update({'placeholder': 'Sobrenome'})
+        self.fields['username'].widget.attrs.update({'placeholder': 'Nome de usuário'})
+        self.fields['email'].widget.attrs.update({'placeholder': 'E-mail'})
+        self.fields['endereco'].widget.attrs.update({'placeholder': 'Endereço'})
+        self.fields['telefone'].widget.attrs.update({'placeholder': 'Telefone'})
+        self.fields['password1'].widget.attrs.update({'placeholder': 'Senha'})
+        self.fields['password2'].widget.attrs.update({'placeholder': 'Confirme sua senha'})
         
         

@@ -17,13 +17,13 @@ admin.site.register(Categoria, CategoriaAdmin)
 
 class PerfilAdmin(UserAdmin):
     fieldsets = UserAdmin.fieldsets + (
-        (None, {'fields': ('endereco', 'telefone', 'data_cadastro')}),
+        (None, {'fields': ('endereco', 'telefone')}),
     )
 admin.site.register(Perfil, PerfilAdmin)
 
 class CarrinhoAdmin(admin.ModelAdmin):
-    list_display = ('quantidade', 'usuario', 'produto')
-    search_fields = ('usuario', 'produto')
+    list_display = ('usuario',)
+    search_fields = ('usuario',)
     list_filter = ('usuario',)
 admin.site.register(Carrinho, CarrinhoAdmin)
 

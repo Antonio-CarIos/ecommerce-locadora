@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Sobre o Cinemando{% endblock title %}
+{% block link %}{% static "css/sobre.css" %}{% endblock link %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static "css/style.css" %}">
+
+<div class="body">
+    <div class="container">
+        <div class="header">
+            <h1>Sobre o Cinemando</h1>
+            <p>Sua porta de entrada para o mundo mágico do cinema, trazendo os melhores filmes do cinema para sua casa.</p>
+        </div>
+
+        <section class="about-section">
+            <h2>Apresenação</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Bem-vindo ao Cinemando, o lugar perfeito para os apaixonados por cinema encontrarem os melhores DVDs originais!</p>
+                    <p>Criado por Adriel Amorim e Antonio Carlos, apreciadores do cinema, o Cinemando nasceu com a missão de preservar a magia das obras cinematográficas e torná-las acessíveis para todos os fãs. Aqui, valorizamos a qualidade, autenticidade e o compromisso com o entretenimento de alto nível.</p>
+                    <p>Nossa plataforma foi pensada para oferecer uma experiência única de compra, com um catálogo cuidadosamente selecionado que vai desde clássicos inesquecíveis até os mais recentes lançamentos. Além disso, nos orgulhamos de apoiar a indústria cinematográfica, promovendo o consumo de mídias originais e respeitando os direitos autorais.</p>
+                    <p>No Cinemando, não vendemos apenas DVDs, mas histórias, aventuras e emoções. Queremos ser mais do que uma loja: queremos ser um ponto de encontro para aqueles que compartilham o amor pelo cinema.</p>
+                    <p>Explore, descubra e embarque em uma viagem cinematográfica conosco!</p>
+                </div>
+                
+            </div>
+        </section>
+
+        <div class="mission-values">
+            <div class="mission">
+                <h3>Nosso Objetivo</h3>
+                <p>Proporcionar aos amantes do cinema acesso fácil e conveniente aos filmes.</p>
+            </div>
+            <div class="values">
+                <h3>Nossos Valores</h3>
+                <ul>
+                    <li><i class="fas fa-star"></i> Paixão pelo cinema</li>
+                    <li><i class="fas fa-heart"></i> Compromisso com a qualidade</li>
+                    <li><i class="fas fa-users"></i> Foco no cliente</li>
+                    <li><i class="fas fa-globe"></i> Distribuição em todo país</li>
+                    <li><i class="fas fa-lightbulb"></i> Prezamos pelo feedback</li>
+                </ul>
+            </div>
+        </div>
+
+        <section class="team-section">
+            <h2>Nossa Equipe</h2>
+            <div class="team-grid">
+                <div class="team-member">
+                    <img src="{% static "img/Adriel.jpeg" %}" alt="Adriel Amorim">
+                    <h3>Adriel Amorim</h3>
+                    <p>Criador</p>
+                </div>
+                <div class="team-member">
+                    <img src="{% static "img/Antonio-Carlos.jpeg" %}" alt="Antonio Carlos">
+                    <h3>Antonio Carlos</h3>
+                    <p>Criador</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact-section">
+            <h2>Entre em Contato</h2>
+            <p>Estamos sempre felizes em ouvir você. Se tiver alguma dúvida, sugestão ou apenas quiser bater um papo sobre filmes do Shrek, não hesite em nos contatar!</p>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <p>atendimento@cinemando.com</p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <p>(84) 4002-8922</p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <p>Av. Sla da Silva Jr, 1000 - Pau dos Ferros, RN</p>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+
+{% endblock content %}

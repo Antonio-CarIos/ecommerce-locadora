@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Cinemando - Carrinho de DVDs{% endblock title %}
+{% block link %}{% static "css/carrinho.css" %}{% endblock link %}
+
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static "css/style.css" %}">
+
+<div class="body">
+    <div class="container">
+        <div class="cart-header">
+            <h1><i class="fas fa-shopping-cart"></i> Carrinho</h1>
+            <span class="cart-count">{{ carrinho.total_itens }} Produtos</span>
+        </div>
+
+        <div class="cart-wrapper">
+            <div class="cart-items">
+                {% for item in itens %}
+                
+                <div class="cart-item">
+                    <img src="{{item.produto.imagem.url}}" alt="{{item.produto.titulo}}" class="item-image">
+                    <div class="item-details">
+                        <div>
+                            <h2 class="item-title">{{item.produto.titulo}}</h2>
+                        </div>
+                        <div class="quantity-controls">
+                            <button class="quantity-btn"><i class="fas fa-minus"></i></button>
+                            <input type="number" value="{{item.quantidade}}" min="1" class="quantity-input">
+                            <button class="quantity-btn"><i class="fas fa-plus"></i></button>
+
+                            <a href="{% url "remover_carrinho" item.id %}"><button class="remove-btn"><i class="fas fa-trash-alt"></i> remover</button></a>
+                        </div>
+                    </div>
+                    <div class="item-price">R$ {{ item.produto.preco|floatformat:2 }}</div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="cart-summary">
+                <h2 class="summary-header">Resumo</h2>
+                <div class="summary-row">
+                    <label>Subtotal</label>
+                    <span>R$ 0</span>
+                </div>
+                <div class="summary-row">
+                    <label>Frete</label>
+                    <button class="coupon-btn"><i class="fas fa-truck"></i> Calcular</button>
+                </div>
+                <div class="summary-row total">
+                    <label>Total</label>
+                    <span>R$ {{ carrinho.total_preco|floatformat:2 }}</span>
+                </div>
+               
+                <button class="checkout-btn"><i class="fas fa-lock"></i> Finalizar a compra</button>
+                <a href="{% url "catalogo" %}" class="continue-shopping"><i class="fas fa-arrow-left"></i> Continuar comprando</a>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
+{% endblock content %}
+
+
+

@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="{% static "css/style.css" %}">
 
 
+
 <body>
     <div class="container">
         <div class="product-container">
@@ -25,15 +26,20 @@
                     <h3>Sinopse</h3>
                     <p>{{ produto.descricao }}</p>
                 </div>
-                <button class="buy-button">
-                    <i class="fas fa-shopping-cart"></i> Adicionar ao Carrinho
-                </button>
+                <form action="{% url 'adicionar_carrinho' produto.id %}" method="POST">
+                    {% csrf_token %}
+
+                    <button type="submit" class="buy-button">
+                        <i class="fas fa-shopping-cart"></i> Adicionar ao Carrinho
+                    </button>
+                </form>
+                
                 <div class="additional-details">
                     <h3>Detalhes Adicionais</h3>
                     <p><strong>Autores:</strong> <span>{{ produto.autores }}</span></p>
                     <p><strong>Elenco:</strong> <span>{{ produto.elenco }}</span></p>
                     <p><strong>Data de Lançamento:</strong> <span>{{ produto.ano_lancamento }}</span></p>
-                    <p><strong>Gênero:</strong> <span>{{ produto.categorias }}</span></p>
+                    <p><strong>Gênero:</strong> <span>{% for categoria in produto.categorias.all %}{{ categoria.nome }}{% if not forloop.last %}, {% endif %}{% endfor %}</span></p>
                 </div>
             </div>
         </div>

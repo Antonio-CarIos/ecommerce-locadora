@@ -2,20 +2,19 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 class Perfil(AbstractUser):
+    email = models.EmailField()
     endereco = models.CharField(max_length=255, blank=True, null=True)
     telefone = models.CharField(max_length=20, blank=True, null=True)
-    data_cadastro = models.DateField(auto_now_add=True)
+    data_cadastro = models.DateField(auto_now_add=True, blank=True, null=True)
 
     def __str__(self):
         return self.username
-
 
 class Categoria(models.Model):
     nome = models.CharField(max_length=100)
 
     def __str__(self):
         return self.nome
-
 
 class Produto(models.Model):
     titulo = models.CharField(max_length=100)
@@ -31,16 +30,19 @@ class Produto(models.Model):
     def __str__(self):
         return self.titulo
 
-
 class Carrinho(models.Model):
     usuario = models.ForeignKey(Perfil, on_delete=models.CASCADE)
-    produto = models.ForeignKey(Produto, on_delete=models.CASCADE)
-    quantidade = models.IntegerField()
+    criado_em = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.quantidade} x {self.produto.titulo} - {self.usuario.username}"
-    
-    
+        return f"Carrinho de {self.usuario.username}"
+
+    def total_itens(self):
+        return sum(item.quantidade for item in self.itens.all())
+
+    def total_preco(self):
+        return sum(item.total_preco for item in self.itens.all())
+      
 class ItemCarrinho(models.Model):
     carrinho = models.ForeignKey(Carrinho, on_delete=models.CASCADE, related_name="itens")
     produto = models.ForeignKey(Produto, on_delete=models.CASCADE)
@@ -53,7 +55,6 @@ class ItemCarrinho(models.Model):
     def total_preco(self):
         return self.quantidade * self.produto.preco
 
-
 class Pedido(models.Model):
     usuario = models.ForeignKey(Perfil, on_delete=models.CASCADE)
     data_pedido = models.DateField(auto_now_add=True)
@@ -64,7 +65,6 @@ class Pedido(models.Model):
         ('Dinheiro Físico', 'Dinheiro Físico')
     ])
    
-
     def __str__(self):
         return f"Pedido #{self.id} - {self.usuario.username}"
     

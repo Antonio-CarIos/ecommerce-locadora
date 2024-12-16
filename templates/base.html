@@ -8,6 +8,7 @@
     <title>{% block title %}{% endblock title %}</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="{% block link %}{% static "css/style.css" %}{% endblock link %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://kit.fontawesome.com/581e3785e6.js" crossorigin="anonymous"></script>
     
 </head>
@@ -19,12 +20,24 @@
         <div class="container">
             <a href="{% url "home" %}"><div class="logo">CINEMANDO</div></a>
             <div class="search-bar">
-                <input type="text" placeholder="Buscar filmes...">
-                <i class="fas fa-search"></i>
+                <form action="{% url "home" %}" method="get">
+                    <input type="text" name="search" placeholder="Buscar filmes..." value="{{ search_query|default:'' }}">
+                    <i class="fas fa-search"></i>
+                    
+                </form>
             </div>
             <div class="user-actions">
-                <a href="#"><i class="fas fa-user"></i> Minha conta</a>
-                <a href="#"><i class="fas fa-shopping-cart"></i> Carrinho (0)</a>
+                {% if user.is_authenticated %}
+                <a href="#"><i class="fas fa-user"></i> {{user.username}}</a>
+                {% else %}
+                <a href="{% url "logar" %}"><i class="fas fa-user"></i> Minha conta</a>
+                {% endif %} 
+                <a href="{% url "carrinho" %}"><i class="fas fa-shopping-cart"></i> Carrinho</a>
+                {% if user.is_authenticated %}
+                <a href="{% url "logout_usuario" %}"><i class="fa fa-sign-out" aria-hidden="true"></i> Sair</a>
+                {% endif %}
+                
+                
             </div>
         </div>
     </header>
@@ -32,13 +45,14 @@
     <nav id="nav">
         <div class="container">
             <ul>
-                <li><a href="#">Início</a></li>
-                <li><a href="#">Pré-Venda</a></li>
+                <li><a href="{% url "home" %}">Início</a></li>
                 <li><a href="#">Lançamentos</a></li>
-                <li><a href="#">Filmes em DVD</a></li>
-                <li><a href="#">Filmes em Blu-ray</a></li>
-                <li><a href="#">Mais Vendidos</a></li>
-                <li><a href="#">Promoções</a></li>
+                <li><a href="{% url "catalogo" %}">Filmes em DVD</a></li>
+                <li><a href="{% url "catalogo" %}">Filmes em Blu-ray</a></li>
+                <li><a href="{% url "sobre" %}">Sobre</a></li>
+                {% if user.is_staff %}
+                    <li><a href="{% url "dashboard" %}">Dashboard</a></li>
+                {% endif %}
             </ul>
         </div>
     </nav>
@@ -78,7 +92,7 @@
             <div class="footer-section">
                 <h3>Informações</h3>
                 <ul>
-                    <li><a href="#">Sobre Nós</a></li>
+                    <li><a href="{% url "sobre" %}">Sobre Nós</a></li>
                     <li><a href="#">Fale Conosco</a></li>
                     <li><a href="#">Política de Privacidade</a></li>
                     <li><a href="#">Termos de Serviço</a></li>
@@ -88,7 +102,7 @@
             </div>
             <div class="footer-section">
                 <h3>Contato</h3>
-                <p>Telefone: (11) 3938-1379</p>
+                <p>Telefone: (84) 4002-8922</p>
                 <p>E-mail: atendimento@cinemando.com</p>
                 <p>Horário de atendimento: Seg-Sex, 9h-18h</p>
                 <div class="social-icons">
